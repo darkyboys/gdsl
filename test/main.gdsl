@@ -1,0 +1,23 @@
+DEF INT, A
+
+MVI A, 9
+
+
+DEF UINT, B
+
+
+MVI B, 32
+
+DEF STR, C
+MVI C, "s"
+
+DEF FLOAT, X
+MVI X, 0.1
+
+DEF INT, D
+MVI D, 5677
+
+MOV A, D
+             
+INCR D
+INCR D

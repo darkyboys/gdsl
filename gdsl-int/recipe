@@ -1,0 +1,22 @@
+# This is for the Cook Build system
+@show_logs true
+@system cook buildFiles/implementation -d
+
+gdsl-int/gdsl-int.cc:
+    out = "gdsl-int"
+    include = [
+        "gdsl-int/"
+    ]
+    combine = [
+        "libo/log.o",
+        "libo/lexer.o",
+        "libo/parser.o",
+        "libo/util.o",
+        # Instructions
+        "libo/DEF.o",
+        "libo/MVI.o",
+        "libo/MOV.o",
+        "libo/INCR.o"
+    ]
+
+@callback bin/gdsl-int test/main.gdsl

@@ -1,0 +1,19 @@
+# This must be run with the cook build system with -d flag
+@show_logs true
+global:
+    compiler_parguments = "-c"
+    bin = "libo"
+    include = [
+        "gdsl-int/"
+    ]
+
+gdsl-int/implementation/log.cc: out = "log.o"
+gdsl-int/implementation/lexer.cc: out = "lexer.o"
+gdsl-int/implementation/parser.cc: out = "parser.o"
+gdsl-int/implementation/util.cc: out = "util.o"
+
+# Instructions
+gdsl-int/implementation/instructions/DEF.cc: out = "DEF.o"
+gdsl-int/implementation/instructions/MVI.cc: out = "MVI.o"
+gdsl-int/implementation/instructions/MOV.cc: out = "MOV.o"
+gdsl-int/implementation/instructions/INCR.cc: out = "INCR.o"

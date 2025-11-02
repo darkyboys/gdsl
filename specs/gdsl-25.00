@@ -1,0 +1,35 @@
+DEF INT, A
+DEF INT, B
+DEF INT, C
+
+MVI A, 9
+MVI B, 3
+
+MOV C, A
+ADD C, B
+
+DEF STR, DIR_STRUCTURE
+
+EXEC DIR_STRUCTURE, END
+> ls
+BLOCK END
+
+CWRITE "Your Directories Structure Is: "
+CWRITE DIR_STRUCTURE
+CWRITE "\n"
+
+# Looping
+DEF INT, TIMES
+DEF STR, LINE
+BLOCK LOOP_START
+MVI LINE "The Loop Is Running ${TIMES}th time.\n"
+PSTR LINE # Process the string
+CWRITE LINE
+INCR TIMES
+MATCH TIMES, 100, END_MATCH
+JUMP LOOP_END
+BLOCK END_MATCH
+JUMP LOOP_START
+BLOCK LOOP_END
+
+# This was just a simple demostration of the specs
