@@ -4,9 +4,13 @@ global:
     compiler_parguments = "-c"
     bin = "libo"
     include = [
-        "gdsl-int/"
+        "gdsl-int/",
+        "include"
     ]
+# Compile the libraries
+include/linuxtools/linuxtools.cc: out = "linuxtools.o"
 
+# Components
 gdsl-int/implementation/log.cc: out = "log.o"
 gdsl-int/implementation/lexer.cc: out = "lexer.o"
 gdsl-int/implementation/parser.cc: out = "parser.o"
@@ -17,3 +21,6 @@ gdsl-int/implementation/instructions/DEF.cc: out = "DEF.o"
 gdsl-int/implementation/instructions/MVI.cc: out = "MVI.o"
 gdsl-int/implementation/instructions/MOV.cc: out = "MOV.o"
 gdsl-int/implementation/instructions/INCR.cc: out = "INCR.o"
+gdsl-int/implementation/instructions/EXEC.cc: out = "EXEC.o"
+gdsl-int/implementation/instructions/EXECOUT.cc: out = "EXECOUT.o"
+gdsl-int/implementation/instructions/EXECERR.cc: out = "EXECERR.o"

@@ -33,11 +33,24 @@ namespace gdsl_int{
             }
             if (code[i] != ' ' and not is_line_started) is_line_started = true; // start the line if as non-spaced character is found and the line isn't even started
             if (code[i] == '"'){
-                if (is_string_open and code[i-1] == '\\'){
+                if (is_string_open and code[i-1] == '\\' and code[i-2] != '\\'){
                     buffer[buffer.length()-1] = '"';
                     continue;
                 }                    
                 is_string_open = not (is_string_open);
+            }
+            if (code[i] == '\\' and code[i+1] != '"' and is_string_open){
+                char c = code[++i];
+                if (c == '\\')
+                    buffer += "\\";
+                else if (c == 'n')
+                    buffer += "\n";
+                else if (c == 'b')
+                    buffer += "\b";
+                else if (c == 't')
+                    buffer += "\t";
+                // i+=1;
+                continue;
             }
 
             // keyword tokenization

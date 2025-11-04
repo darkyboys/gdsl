@@ -1,0 +1,2 @@
+MVI STDOUT_BUFFER, "Hi\n"
+MVI STDOUT_BUFFER, "Hi there"

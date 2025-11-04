@@ -13,7 +13,11 @@
 #include <cstddef>
 
 namespace gdsl_int{
-    std::vector <std::vector <std::string>> blocks = {};
+    std::vector <std::vector <std::string>> blocks = {
+        {"EXEC_BUFFER", "STR", ""}, // default permenant buffer in the memory for EXEC and it's variations
+        {"STDOUT_BUFFER", "STR", ""}, // default permenant buffer in the memory for STDOUT WRITES and it's variations
+        {"STDERR_BUFFER", "STR", ""} // default permenant buffer in the memory for STDERR WRITES and it's variations
+    };
     void parse (std::vector <std::vector <std::string>> tokens){
         for (unsigned long long i = 0;i < tokens.size();i++){
             std::string instruction = tokens[i][0]; // [i] is the token number/index and [0] refers to the exact keyword/instruction
@@ -38,12 +42,31 @@ namespace gdsl_int{
             else if (instruction == "INCR"){
                 err = INCR(primary_value, blocks);
             }
+            else if (instruction == "EXEC"){
+                std::vector <std::string> v = tokens[i];
+                v.erase(v.begin(), v.begin() + 1);
+                err = EXEC(v, blocks);
+            }
+            else if (instruction == "EXECOUT"){
+                std::vector <std::string> v = tokens[i];
+                v.erase(v.begin(), v.begin() + 1);
+                err = EXECOUT(v, blocks);
+            }
+            else if (instruction == "EXECERR"){
+                std::vector <std::string> v = tokens[i];
+                v.erase(v.begin(), v.begin() + 1);
+                err = EXECERR(v, blocks);
+            }
 
             if (err != ""){
                 err = "On line " + std::to_string(i+1) + ", " + err;
                 gdsl_int::write(err, gdsl_int::WRITE_ERR);
                 std::exit ( 3 );
             }
+
+            // Always output STDOUT and STDERR
+            std::cout << blocks[1][2]; // "Write the STDOUT"
+            std::cerr << blocks[2][2]; // "Write the STDERR"
         }
     }
 }

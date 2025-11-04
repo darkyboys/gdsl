@@ -64,8 +64,8 @@ namespace gdsl_int {
                 
                     else if (type == "STR"){
                         // blocks.push_back({name, "STR", ""});
-                        if (value[0] == '"') // Always a string signature
-                            block_value = value;
+                        if (value[0] == '"' and value[value.length()-1] == '"') // Always a string signature
+                            block_value = value.substr(1, value.length()-2);
                         else
                             error = "A STR can only store characters inside \"\" like \"Hello world 2025\" ... But the data type passed was a non-string type";
                     }

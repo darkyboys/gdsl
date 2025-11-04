@@ -55,11 +55,11 @@ int main(int argc, char* argv[]){
         }
         auto tokens = gdsl_int::lexer(code);
         gdsl_int::parse(tokens);
-            for (std::vector <std::string> token : gdsl_int::blocks){
-                for (std::string keyword : token){
-                    gdsl_int::write(keyword, gdsl_int::WRITE_WARN);
-                }
-            }
+            // for (std::vector <std::string> token : gdsl_int::blocks){
+            //     for (std::string keyword : token){
+            //         gdsl_int::write(keyword, gdsl_int::WRITE_WARN);
+            //     }
+            // }
     }
     else {
         gdsl_int::write("File couldn't be opened", gdsl_int::WRITE_ERR);

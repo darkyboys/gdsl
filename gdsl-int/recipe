@@ -5,7 +5,8 @@
 gdsl-int/gdsl-int.cc:
     out = "gdsl-int"
     include = [
-        "gdsl-int/"
+        "gdsl-int/",
+        "include"
     ]
     combine = [
         "libo/log.o",
@@ -16,7 +17,11 @@ gdsl-int/gdsl-int.cc:
         "libo/DEF.o",
         "libo/MVI.o",
         "libo/MOV.o",
-        "libo/INCR.o"
+        "libo/INCR.o",
+        "libo/EXEC.o",
+        "libo/EXECOUT.o",
+        "libo/EXECERR.o",
+        "libo/linuxtools.o"
     ]
 
 @callback bin/gdsl-int test/main.gdsl

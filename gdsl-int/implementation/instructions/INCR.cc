@@ -8,7 +8,7 @@
  * This interpreter is made for the GDSL Specs 25.00
  */
 
-// This is the MOV Instruction header for the gdsl-int
+// This is the INCR Instruction header for the gdsl-int
 // C++ Headers
 #include <instructions/INCR.hh>
 

@@ -21,6 +21,9 @@
 #include <instructions/MVI.hh>
 #include <instructions/MOV.hh>
 #include <instructions/INCR.hh>
+#include <instructions/EXEC.hh>
+#include <instructions/EXECOUT.hh>
+#include <instructions/EXECERR.hh>
 
 namespace gdsl_int{
     extern std::vector <std::vector <std::string>> blocks; // the blocks stored in the def are going to be stored here
