@@ -24,6 +24,7 @@
 #include <instructions/EXEC.hh>
 #include <instructions/EXECOUT.hh>
 #include <instructions/EXECERR.hh>
+#include <instructions/BLKDEF.hh>
 
 namespace gdsl_int{
     extern std::vector <std::vector <std::string>> blocks; // the blocks stored in the def are going to be stored here

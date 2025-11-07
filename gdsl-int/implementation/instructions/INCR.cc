@@ -13,23 +13,32 @@
 #include <instructions/INCR.hh>
 
 namespace gdsl_int {
-   std::string INCR(std::string name, std::vector <std::vector <std::string>> &blocks){
+   std::string INCR(std::string name, std::string index, std::vector <std::vector <std::string>> &blocks){
         bool is_defined = false;
         std::string error;
         std::string type;
+        if (not gdsl_int::is_string_integer(index)){
+            error = "INCR Needs a valid index to work with";
+            return error;
+        }
         for (std::vector <std::string> &current_block : blocks){
             for (std::string current_block_name : current_block){
                 if (current_block_name == name){
                     is_defined = true;
+                    int i_index = gdsl_int::string_to_int(index);
+                    if (not (current_block.size()-2 >= i_index+1 and i_index >= 0)){
+                        error = "INCR's index must be in the range of the the block size.";
+                        return error;
+                    }
                     type = current_block[1]; // data type
                     if (type == "INT" or type == "UINT"){
-                        current_block[2] = std::to_string (
-                            string_to_int(current_block[2])+1
+                        current_block[2+i_index] = std::to_string (
+                            string_to_int(current_block[2+i_index])+1
                         );
                     }
                     else if (type == "FLOAT"){
                         current_block[2] = std::to_string (
-                            string_to_float(current_block[2])+1.0f
+                            string_to_float(current_block[2+i_index])+1.0f
                         );
                     }
                     else {

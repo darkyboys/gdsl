@@ -13,15 +13,24 @@
 #include <instructions/MVI.hh>
 
 namespace gdsl_int {
-    std::string MVI(std::string name, std::string value, std::vector <std::vector <std::string>> &blocks){
+    std::string MVI(std::string name, std::string value, std::string index, std::vector <std::vector <std::string>> &blocks){
         bool is_defined = false;
         std::string error;
+        if (not gdsl_int::is_string_integer(index)){
+            error = "MVI's index must be a valid integer value.";
+            return error;
+        }
+        int i_index = gdsl_int::string_to_int(index);
         for (std::vector <std::string> &current_block : blocks){
             for (std::string current_block_name : current_block){
                 if (current_block_name == name){
+                    if (not (current_block.size()-2 >= i_index+1 and i_index >= 0)){
+                        error = "MVI's index must be in the range of the the block size.";
+                        return error;
+                    }
                     is_defined = true;
                     std::string type = current_block[1]; // data type
-                    std::string& block_value = current_block[2]; // value / data block
+                    std::string& block_value = current_block[2+i_index]; // value / data block
                     if (type == "INT"){
                         // blocks.push_back({name, "INT", "0"});
                         if (gdsl_int::is_string_integer(value)){
