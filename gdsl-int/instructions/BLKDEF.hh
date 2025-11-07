@@ -8,17 +8,14 @@
  * This interpreter is made for the GDSL Specs 25.00
  */
 
-// This is the INCR Instruction header for the gdsl-int
-#ifndef GDSL_INSTRUCTION_INCR
-#define GDSL_INSTRUCTION_INCR 1
+// This is the DEF Instruction header for the gdsl-int
+#ifndef GDSL_INSTRUCTION_BLKDEF
+#define GDSL_INSTRUCTION_BLKDEF 1
 // C++ Headers
 #include <string>
 #include <vector>
 
-// Local headers
-#include <components/util.hh>
-
 namespace gdsl_int {
-    std::string INCR(std::string name, std::string index, std::vector <std::vector <std::string>> &blocks);
+    std::string BLKDEF(std::string name, std::string type, std::string size, std::vector <std::vector <std::string>> &blocks);
 }
 #endif

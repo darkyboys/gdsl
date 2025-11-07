@@ -20,6 +20,6 @@
 #include <components/log.hh>
 
 namespace gdsl_int {
-    std::string MOV(std::string name, std::string value, std::vector <std::vector <std::string>> &blocks);
+    std::string MOV(std::string name, std::string value, std::string index_name, std::string index_value, std::vector <std::vector <std::string>> &blocks);
 }
 #endif

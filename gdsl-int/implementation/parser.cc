@@ -34,13 +34,27 @@ namespace gdsl_int{
                 err = DEF(secondary_value, primary_value, blocks);
             }
             else if (instruction == "MVI"){
-                err = MVI(primary_value, secondary_value, blocks);
+                if (tokens[i].size() > 3){
+                    err = MVI(primary_value, secondary_value, tokens[i][3], blocks);
+                }
+                else err = MVI(primary_value, secondary_value, "0", blocks);
             }
             else if (instruction == "MOV"){
-                err = MOV(primary_value, secondary_value, blocks);
+                if (tokens[i].size() > 4){
+                    err = MOV(primary_value, secondary_value, tokens[i][4], tokens[i][3], blocks);
+                }
+                else if (tokens[i].size() > 3){
+                    err = MOV(primary_value, secondary_value, "0", tokens[i][3], blocks);
+                }
+                else {
+                    err = MOV(primary_value, secondary_value, "0", "0", blocks);
+                }
             }
             else if (instruction == "INCR"){
-                err = INCR(primary_value, blocks);
+                if (tokens[i].size() > 2){
+                    err = INCR(primary_value, secondary_value, blocks);
+                }
+                else err = INCR(primary_value, "0", blocks);
             }
             else if (instruction == "EXEC"){
                 std::vector <std::string> v = tokens[i];
@@ -56,6 +70,14 @@ namespace gdsl_int{
                 std::vector <std::string> v = tokens[i];
                 v.erase(v.begin(), v.begin() + 1);
                 err = EXECERR(v, blocks);
+            }
+            else if (instruction == "BLKDEF"){
+                if (tokens[i].size() > 3){
+                    err = BLKDEF(secondary_value, primary_value, tokens[i][3], blocks);
+                }
+                else {
+                    err = "BLKDEF Needs a size (fixable syntax BLKDEF type, name, size)";
+                }
             }
 
             if (err != ""){

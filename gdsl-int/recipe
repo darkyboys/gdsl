@@ -21,6 +21,7 @@ gdsl-int/gdsl-int.cc:
         "libo/EXEC.o",
         "libo/EXECOUT.o",
         "libo/EXECERR.o",
+        "libo/BLKDEF.o",
         "libo/linuxtools.o"
     ]
 

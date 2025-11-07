@@ -13,18 +13,27 @@
 #include <instructions/MOV.hh>
 
 namespace gdsl_int {
-    std::string MOV(std::string name, std::string value, std::vector <std::vector <std::string>> &blocks){
+    std::string MOV(std::string name, std::string value, std::string index_name, std::string index_value, std::vector <std::vector <std::string>> &blocks){
         bool is_defined = false;
         bool is_defined_2 = false;
         std::string error;
         std::string type;
         std::string *value_buffer;
+        if (not gdsl_int::is_string_integer(index_name) or not gdsl_int::is_string_integer(index_value)){
+            error = "MOV's index must be a valid integer value.";
+            return error;
+        }
         for (std::vector <std::string> &current_block : blocks){
             for (std::string current_block_name : current_block){
                 if (current_block_name == name){
+                    int i_index_value = gdsl_int::string_to_int(index_value);
+                    if (not (current_block.size()-2 >= i_index_value+1 and i_index_value >= 0)){
+                        error = "MOV's index must be in the range of the the block size.";
+                        return error;
+                    }
                     is_defined = true;
                     type = current_block[1]; // data type
-                    value_buffer = &current_block[2]; // Where the value will be stored
+                    value_buffer = &current_block[2+i_index_value]; // Where the value will be stored
                     break;
                 }
             }
@@ -42,8 +51,13 @@ namespace gdsl_int {
             for (std::string current_block_name : current_block){
                 if (current_block_name == value){
                     is_defined_2 = true;
+                    int i_index_name = gdsl_int::string_to_int(index_name);
+                    if (not (current_block.size()-2 >= i_index_name+1 and i_index_name >= 0)){
+                        error = "MOV's index must be in the range of the the block size.";
+                        return error;
+                    }
                     if (type == current_block[1]){
-                        *value_buffer = current_block[2]; // Write the value
+                        *value_buffer = current_block[2+i_index_name]; // Write the value
                     }
                     else {
                         error = "MOV Can not move in between to unknown data types.";

@@ -20,6 +20,6 @@
 #include <components/log.hh>
 
 namespace gdsl_int {
-    std::string MVI(std::string name, std::string value, std::vector <std::vector <std::string>> &blocks);
+    std::string MVI(std::string name, std::string value, std::string index, std::vector <std::vector <std::string>> &blocks);
 }
 #endif
