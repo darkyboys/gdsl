@@ -18,6 +18,7 @@ namespace gdsl_int{
         {"STDOUT_BUFFER", "STR", ""}, // default permenant buffer in the memory for STDOUT WRITES and it's variations
         {"STDERR_BUFFER", "STR", ""} // default permenant buffer in the memory for STDERR WRITES and it's variations
     };
+    std::vector <std::vector <std::string>> labels = {}; //  store the labels in the form or label,index
     void parse (std::vector <std::vector <std::string>> tokens){
         for (unsigned long long i = 0;i < tokens.size();i++){
             std::string instruction = tokens[i][0]; // [i] is the token number/index and [0] refers to the exact keyword/instruction
@@ -77,6 +78,78 @@ namespace gdsl_int{
                 }
                 else {
                     err = "BLKDEF Needs a size (fixable syntax BLKDEF type, name, size)";
+                }
+            }
+            else if (instruction == "LABEL"){
+                labels.push_back ({primary_value, std::to_string(i)});
+            }
+            else if (instruction == "JUMP"){
+                bool label_found = false;
+                for (std::vector <std::string> current_label : labels){
+                    if (current_label[0] == primary_value){
+                        i = gdsl_int::string_to_int(current_label[1]);
+                        label_found = true;
+                        break;
+                    }
+                }
+                if (label_found) continue;
+                // This will only reach here if no label was found previously allocated
+                // So we will keep looping until we finally finds the required label
+                label_found = false;
+                for (unsigned long long &x = i;x < tokens.size();x++){ // Always remember that x isn't 0
+                    std::string ins = tokens[i][0]; // instruction of the sandboxed token
+                    std::string val = tokens[i][1]; // value of the sandboxed token
+                    if (ins == "LABEL" and val == primary_value){ // label was found
+                        labels.push_back ({primary_value, std::to_string(x)}); // you can also say it's i
+                        label_found = true;
+                        break;
+                    }
+                }
+                if (label_found) continue;
+                // This will only execute if label search was globally failed (Means the label wasn't present)
+                // Throw error then
+                err = "JUMP Error - Unknown label was passed.";
+            }
+            else if (instruction == "FMOV"){
+                if (tokens[i].size() > 4){
+                    err = FMOV(primary_value, secondary_value, tokens[i][4], tokens[i][3], blocks);
+                }
+                else if (tokens[i].size() > 3){
+                    err = FMOV(primary_value, secondary_value, "0", tokens[i][3], blocks);
+                }
+                else {
+                    err = FMOV(primary_value, secondary_value, "0", "0", blocks);
+                }
+            }
+            else if (instruction == "LOOPT"){
+                if (secondary_value == ""){
+                    err = "LOOPT's LABEL Value can not be empty.";
+                }
+                else {
+                    if (gdsl_int::is_string_integer(primary_value)){
+                        unsigned long long times = gdsl_int::string_to_int(primary_value);
+                        std::vector <std::vector <std::string>> subparser_tokens;
+                        unsigned long long ending_point = 0;
+                        for (unsigned long long subloop_index = i+1;subloop_index < tokens.size();subloop_index++){ // Read the instructions from the memory
+                            if (tokens[subloop_index][0] == "LABEL" and tokens[subloop_index][1] == secondary_value){ // Always check for the label instruction to mark the ending point
+                                ending_point = subloop_index; // Mark the ending point
+                                break;
+                            }
+                            else {
+                                subparser_tokens.push_back (tokens[subloop_index]);
+                                // std::cerr<<"Tokens Pushing: "<<tokens[subloop_index][0]<<","<<tokens[subloop_index][1]<<"\n"; // For debugging only (Via bash with 1>/dev/null in the cli)
+                            }
+                        }
+                        // Spawn a sub parser to parse the tokens the loop times
+                        for (unsigned long long x = 1;x < times;x++){
+                            // std::cout << "Iteration Number "<<x<<"\nFirst Token: "<<subparser_tokens[0][0]<<"\n"; // For debugging only
+                            gdsl_int::parse (subparser_tokens);
+                        }
+                        i = ending_point; // Jump to the ending point
+                    }
+                    else {
+                        err = "LOOPT's TIMES Value can not be a non integer type.";
+                    }
                 }
             }
 

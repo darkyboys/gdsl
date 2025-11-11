@@ -23,7 +23,6 @@ namespace gdsl_int{
         for (unsigned long long i = 0;i < code.length();i++){
             if (code[i] == '\n' and is_comment_started){
                 is_comment_started = false;
-                continue;
             }
             if (is_comment_started)
                 continue;
@@ -54,18 +53,6 @@ namespace gdsl_int{
             }
 
             // keyword tokenization
-            if (code[i] == ' ' and not is_string_open and is_line_started and not is_keyword_defined){
-                current_token.push_back(buffer); // Add the keyword
-                buffer.clear(); // Simply clear the buffer afterwards
-                is_line_started = false; // Tell the lexer that the line is not started because we don't want to include spaces in our buffer data unless the data is string
-                is_keyword_defined = true; // Tell the lexer that our keyword was already defined
-            }
-
-            if (code[i] == ',' and not is_string_open and is_line_started and is_keyword_defined){
-                current_token.push_back(buffer); // Add the values
-                buffer.clear(); // Simply clear the buffer afterwards
-                is_line_started = false;  // Tell the lexer that the line is not started because we don't want to include spaces in our buffer data unless the data is string
-            }
 
             if (code[i] == '\n' and not is_string_open and is_keyword_defined){
                 current_token.push_back(buffer); // Add the values
@@ -83,6 +70,19 @@ namespace gdsl_int{
                 is_line_started = false;
                 current_token.clear(); // clear the current token too
                 continue;
+            }
+            if (code[i] == ' ' and not is_string_open and is_line_started and is_keyword_defined) continue;
+            if (code[i] == ' ' and not is_string_open and is_line_started and not is_keyword_defined){
+                current_token.push_back(buffer); // Add the keyword
+                buffer.clear(); // Simply clear the buffer afterwards
+                is_line_started = false; // Tell the lexer that the line is not started because we don't want to include spaces in our buffer data unless the data is string
+                is_keyword_defined = true; // Tell the lexer that our keyword was already defined
+            }
+
+            if (code[i] == ',' and not is_string_open and is_line_started and is_keyword_defined){
+                current_token.push_back(buffer); // Add the values
+                buffer.clear(); // Simply clear the buffer afterwards
+                is_line_started = false;  // Tell the lexer that the line is not started because we don't want to include spaces in our buffer data unless the data is string
             }
 
             // code management

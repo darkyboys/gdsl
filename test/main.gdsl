@@ -24,7 +24,7 @@ INCR D
 
 EXEC ls
 MVI EXEC_BUFFER, ""
-EXEC echo, Hello world 2024, 3989
+EXEC echo, "Hello world 2024", 3989
 
 MOV STDOUT_BUFFER, EXEC_BUFFER
 INCR D

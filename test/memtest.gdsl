@@ -1,0 +1,7 @@
+BLKDEF INT, A, 5
+
+MVI A, 1, 0      #hello
+MVI A, 2, 1
+MVI A, 3, 2
+MVI A, 4, 3
+MVI A, 5, 4

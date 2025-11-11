@@ -2,6 +2,9 @@
 @show_logs true
 @system cook buildFiles/implementation -d
 
+global:
+    compiler_parguments = "-O3"
+
 gdsl-int/gdsl-int.cc:
     out = "gdsl-int"
     include = [
@@ -22,6 +25,7 @@ gdsl-int/gdsl-int.cc:
         "libo/EXECOUT.o",
         "libo/EXECERR.o",
         "libo/BLKDEF.o",
+        "libo/FMOV.o",
         "libo/linuxtools.o"
     ]
 

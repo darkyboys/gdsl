@@ -16,6 +16,9 @@
 #include   <string>
 #include   <vector>
 
+// Linux Headers
+#include <unistd.h>
+
 // Instructions
 #include <instructions/DEF.hh>
 #include <instructions/MVI.hh>
@@ -25,9 +28,11 @@
 #include <instructions/EXECOUT.hh>
 #include <instructions/EXECERR.hh>
 #include <instructions/BLKDEF.hh>
+#include <instructions/FMOV.hh>
 
 namespace gdsl_int{
     extern std::vector <std::vector <std::string>> blocks; // the blocks stored in the def are going to be stored here
+    extern std::vector <std::vector <std::string>> labels; //  store the labels in the form or label,index
     void parse (std::vector <std::vector <std::string>> tokens);
 }
 
