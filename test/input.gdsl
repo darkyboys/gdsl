@@ -1,0 +1,5 @@
+MVI STDOUT_BUFFER, "Please enter your name: "
+MVI STDOUT_BUFFER, ""
+EXEC head, -n, 1
+MVI STDOUT_BUFFER, "You entered "
+MOV STDOUT_BUFFER, EXEC_BUFFER

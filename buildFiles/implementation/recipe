@@ -1,7 +1,7 @@
 # This must be run with the cook build system with -d flag
 @show_logs true
 global:
-    compiler_parguments = "-c"
+    compiler_parguments = "-c -O3"
     bin = "libo"
     include = [
         "gdsl-int/",
@@ -25,3 +25,4 @@ gdsl-int/implementation/instructions/EXEC.cc: out = "EXEC.o"
 gdsl-int/implementation/instructions/EXECOUT.cc: out = "EXECOUT.o"
 gdsl-int/implementation/instructions/EXECERR.cc: out = "EXECERR.o"
 gdsl-int/implementation/instructions/BLKDEF.cc: out = "BLKDEF.o"
+gdsl-int/implementation/instructions/FMOV.cc: out = "FMOV.o"

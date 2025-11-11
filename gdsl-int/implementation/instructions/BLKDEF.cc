@@ -8,7 +8,7 @@
  * This interpreter is made for the GDSL Specs 25.00
  */
 
-// This is the DEF Instruction header for the gdsl-int
+// This is the BLKDEF Instruction header for the gdsl-int
 // C++ Headers
 #include <instructions/DEF.hh>
 #include <components/util.hh>

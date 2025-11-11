@@ -8,14 +8,18 @@
  * This interpreter is made for the GDSL Specs 25.00
  */
 
-// This is the BLKDEF Instruction header for the gdsl-int
-#ifndef GDSL_INSTRUCTION_BLKDEF
-#define GDSL_INSTRUCTION_BLKDEF 1
+// This is the MOV Instruction header for the gdsl-int
+#ifndef GDSL_INSTRUCTION_FMOV
+#define GDSL_INSTRUCTION_FMOV 1
 // C++ Headers
 #include <string>
 #include <vector>
 
+// Local headers
+#include <components/util.hh>
+#include <components/log.hh>
+
 namespace gdsl_int {
-    std::string BLKDEF(std::string name, std::string type, std::string size, std::vector <std::vector <std::string>> &blocks);
+    std::string FMOV(std::string name, std::string value, std::string index_name, std::string index_value, std::vector <std::vector <std::string>> &blocks);
 }
 #endif
