@@ -25,18 +25,18 @@ MACRO VALUE1
 
 ### Supported MACROS (As of Now)
 Bellow are all the supported macros of `GDSL` which this project `gdsl-int` supports:-
- - *DEF <typename>, <block name>*: This macro takes a type name which can either be the one of (INT, UINT, STR, FLOAT) and a block name to define that block in the memory.
- - *BLKDEF <typename>, <block name>, <size>*: This macro also defines a block in the memory but not just a single block. It defines a lot of blocks in the memory together depending on the size.
- - *MVI <block name>, <value>, <optional value index>*: This is like an assembly instruction, All this does is that this directly inserts a value into a block (The type must be the same). This can also take an optional index for the blocks defined in the memory starting from the index 0 to the size - 1, By default the *DEF* macro only defined the block with index 0 and BLKDEF from 0 to the size-1 so use carefully and refer `test/` for doubts.
- - *MOV <block name>, <block2 name>, <optional block index>, <optional block2 index>*: This is used to move the data in between blocks from the 2nd block to the first block. Optionally takes the index of both blocks if needed.
- - *INCR <block name>*: This block only increments an `INT` or `UINT` by `1`.
- - *FMOV <block name>, <block2 name>, <optional block index>, <optional block2 index>*: This is same as `MOV` but the values will be moved without checking the daat type.
- - *EXEC <command>, [arguments]*: This executes a command and takes infinite number of arguments as arguments for that command. And executes it with all those arguments, Also writes the command's `STDOUT` and `STDERR` to the `EXEC_BUFFER` block (This block is already defined by the interpreter / compiler).
- - *EXECOUT <command>, [arguments]*: Same as `EXEC` but only writes `STDOUT` to the `EXEC_BUFFER`.
- - *EXECERR <command>, [arguments]*: Same as `EXEC` but only writes `STDERR` to the `EXEC_BUFFER`.
- - *LABEL <name>*: Defined a label to later jump on.
- - *JUMP <label name>*: Jumps on that label so the execution starts from there.
- - *LOOPT <times>, <label name>*: Usually it's possible to loop over the program without using this macro but it will be slower for manual JUMPs on LABELs so that is why this isn't in the official specification but this project supports this *LOOPT* Keyword so loop x times. This will run all the instructions `<times>` times and till the `<label>` label. (Please refer `test/`
+ - *DEF typename, block name*: This macro takes a type name which can either be the one of (INT, UINT, STR, FLOAT) and a block name to define that block in the memory.
+ - *BLKDEF typename, block name, size*: This macro also defines a block in the memory but not just a single block. It defines a lot of blocks in the memory together depending on the size.
+ - *MVI block name, value, optional value index*: This is like an assembly instruction, All this does is that this directly inserts a value into a block (The type must be the same). This can also take an optional index for the blocks defined in the memory starting from the index 0 to the size - 1, By default the *DEF* macro only defined the block with index 0 and BLKDEF from 0 to the size-1 so use carefully and refer `test/` for doubts.
+ - *MOV block name, block2 name, optional block index, optional block2 index*: This is used to move the data in between blocks from the 2nd block to the first block. Optionally takes the index of both blocks if needed.
+ - *INCR block name*: This block only increments an `INT` or `UINT` by `1`.
+ - *FMOV block name, block2 name, optional block index, optional block2 index*: This is same as `MOV` but the values will be moved without checking the daat type.
+ - *EXEC command, [arguments]*: This executes a command and takes infinite number of arguments as arguments for that command. And executes it with all those arguments, Also writes the command's `STDOUT` and `STDERR` to the `EXEC_BUFFER` block (This block is already defined by the interpreter / compiler).
+ - *EXECOUT command, [arguments]*: Same as `EXEC` but only writes `STDOUT` to the `EXEC_BUFFER`.
+ - *EXECERR command, [arguments]*: Same as `EXEC` but only writes `STDERR` to the `EXEC_BUFFER`.
+ - *LABEL name*: Defined a label to later jump on.
+ - *JUMP label name*: Jumps on that label so the execution starts from there.
+ - *LOOPT times, label name*: Usually it's possible to loop over the program without using this macro but it will be slower for manual JUMPs on LABELs so that is why this isn't in the official specification but this project supports this *LOOPT* Keyword so loop x times. This will run all the instructions `<times>` times and till the `<label>` label. (Please refer `test/`
 
 # Installation
 The installation is very simple:
